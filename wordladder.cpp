@@ -14,17 +14,17 @@
 #include <algorithm>
 #include <set>
 #include <ctype.h>
-
+#include <lexicon.h>
 
 using namespace std;
 
-void findladders(string begin, string end, set<string>& wordlist){
+void findladders(string begin, string end, Lexicon& wordlist){
 
     queue<stack<string>> que;
     stack<string> fstack;
     set<string> wordset; //已经在ladder中的单词
     wordset.insert(begin);
-    sta.push(begin);
+    fstack.push(begin);
     que.push(fstack);
 
     bool found = false;
@@ -37,7 +37,7 @@ void findladders(string begin, string end, set<string>& wordlist){
             for(char j = 'a'; j <= 'z'; j++){
                 string tmp = top;
                 tmp[i] = j;
-                if(!wordset.count(tmp) && wordlist.count(tmp)){
+                if(!wordset.count(tmp) && wordlist.contains(tmp)){
                     wordset.insert(tmp);
                     if(tmp == end){
                         cout << "A ladder from " << end << " back to " << begin << ":" << endl;
@@ -78,20 +78,21 @@ int main() {
 
     cout << "Dictionary file name?";
     cin >> dict;
-    ifstream infile;
-    infile.open(dict);
-    while(!infile){
-        cout << "Unable to open that file.  Try again." << endl;
-        cout << "Dictionary file name?";
-        cin >> dict;
-        infile.open(dict);
-    }
-    string str;
-    set<string>wordlist;
-    while(getline(infile,str)){
-        wordlist.insert(str);
-    }
-    //读取字典并存为数组
+//    ifstream infile;
+//    infile.open(dict);
+//    while(!infile){
+//        cout << "Unable to open that file.  Try again." << endl;
+//        cout << "Dictionary file name?";
+//        cin >> dict;
+//        infile.open(dict);
+//    }
+//    string str;
+//    set<string>wordlist;
+//    while(getline(infile,str)){
+//        wordlist.insert(str);
+//    }
+//    //读取字典并存为数组
+    Lexicon wordlist(dict);
     string temp;
     getline(std::cin,temp);
     while(1){
@@ -104,7 +105,7 @@ int main() {
         getline(std::cin,w2);
         if(w2 == ""){
             break;
-        }else if(!(wordlist.count(w2) && wordlist.count(w1))){
+        }else if(!(wordlist.contains(w2) && wordlist.contains(w1))){
             cout << "The two words must be found in the dictionary." << "\n";
         }
         else if(w1.length() != w2.length()){
