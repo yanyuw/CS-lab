@@ -47,15 +47,16 @@ void makemap(ifstream &infile,int n){
         window.erase(window.begin());
         window.push_back(nextword);
 
-        for(int i = 0; i < fwindow.size(); i++){
-            tmp = wordmap[window];
-            tmp.push_back(fwindow[i]);
-            wordmap[window] = tmp;
-
-            window.erase(window.begin());
-            window.push_back(fwindow[i]);
-        }
     }
+    for(int i = 0; i < fwindow.size(); i++){
+        vector<string> tmp = wordmap[window];
+        tmp.push_back(fwindow[i]);
+        wordmap[window] = tmp;
+
+        window.erase(window.begin());
+        window.push_back(fwindow[i]);
+    }
+    
 }
 
 void produce(int num){
