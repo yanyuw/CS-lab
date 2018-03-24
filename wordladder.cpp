@@ -41,6 +41,7 @@ void findladders(string begin, string end, Lexicon& wordlist){
                     wordset.insert(tmp);
                     if(tmp == end){
                         cout << "A ladder from " << end << " back to " << begin << ":" << endl;
+                        cout << end << " ";
                         while(!nowstack.empty()){
                             cout << nowstack.top() << " ";
                             nowstack.pop();
