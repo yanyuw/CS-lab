@@ -359,7 +359,7 @@ unsigned float_neg(unsigned uf) {
  *   Rating: 4
  */
 unsigned float_i2f(int x) {
-  unsigned sign, shiftLeft = 0, flag = 0, tmp;  
+  unsigned sign = 0, shiftLeft = 0, flag = 0, tmp;  
   unsigned result = x;  
 
   if(!x){
@@ -380,17 +380,17 @@ unsigned float_i2f(int x) {
 
 
   if((result & 0x01FF) > 0x0100){
-    flag = 1;
-  }
-    
-  if((result & 0x03FF) == 0x0300){
-    flag = 1;
+      flag = 1;
+  }else if((result & 0x03FF) == 0x0300){
+      flag = 1;
+  }else{
+      flag = 0;
   }
     
     
   return sign + (result >> 9) + ((159 - shiftLeft) << 23) + flag;  
 }
-//？？？
+
 
 /* 
  * float_twice - Return bit-level equivalent of expression 2*f for
